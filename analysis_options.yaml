@@ -1,0 +1,13 @@
+include: package:flutter_lints/flutter.yaml
+
+analyzer:
+  plugins:
+    - import_lint
+  errors:
+    dead_code: error
+
+import_lint:
+  rules:
+    - disallow:
+        path: "package:flutter/material.dart"
+        message: "Do not import material.dart. Use individual imports (e.g. 'package:flutter/widgets.dart')."
