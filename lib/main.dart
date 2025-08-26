@@ -7,6 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_learn/features/paralax/paralax.dart';
+import 'package:flutter_learn/features/sliver_appbar/cupertino_sliver_appbar_example.dart';
 import 'package:flutter_learn/utils/locations.dart';
 import 'package:flutter_learn/features/nice_fab_widget.dart';
 import 'package:flutter_learn/utils/textstyles.dart';
@@ -26,7 +27,7 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final list = List<String>.generate(10000, (i) => 'Item $i');
 
-    return ParalaxExample();
+    return CupertinoSliverAppbarExample(list: list);
   }
 }
 
@@ -41,47 +42,6 @@ class CustomIcon extends StatelessWidget {
         Icon(Icons.circle, size: 40, color: Colors.amberAccent),
         Icon(Icons.notification_important_sharp, color: Colors.white),
       ],
-    );
-  }
-}
-
-class CupertinoSliverAppbar extends StatelessWidget {
-  const CupertinoSliverAppbar({super.key, required this.list});
-
-  final List<String> list;
-
-  @override
-  Widget build(BuildContext context) {
-    return CupertinoApp(
-      debugShowCheckedModeBanner: false,
-      home: DefaultTextStyle(
-        style: descTextStyleCupertino,
-        child: CupertinoPageScaffold(
-          child: CustomScrollView(
-            slivers: [
-              CupertinoSliverNavigationBar(
-                largeTitle: Text("Cupertino Sliver App bar"),
-              ),
-
-              SliverList.builder(
-                itemCount: list.length,
-                itemBuilder: (context, index) => Container(
-                  color: CupertinoColors.activeBlue,
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Center(
-                      child: Text(
-                        list[index],
-                        style: TextStyle(color: CupertinoColors.black),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
     );
   }
 }
