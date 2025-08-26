@@ -1,18 +1,21 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, unused_import
 
 import 'dart:math';
 
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter_learn/features/paralax/paralax.dart';
 import 'package:flutter_learn/features/sliver_appbar/cupertino_sliver_appbar_example.dart';
+import 'package:flutter_learn/features/sliver_appbar/material_sliver_appbar_example.dart';
+import 'package:flutter_learn/features/scroll_view/wheel_scroll_view_example.dart';
 import 'package:flutter_learn/utils/locations.dart';
 import 'package:flutter_learn/features/nice_fab_widget.dart';
 import 'package:flutter_learn/utils/textstyles.dart';
 import 'package:flutter_learn/utils/utils.dart';
 import 'package:shimmer/shimmer.dart';
+
+import 'features/scroll_view/draggable_sheet/draggable_sheet_example.dart';
 
 void main() {
   // debugPaintSizeEnabled = true;
@@ -27,171 +30,7 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final list = List<String>.generate(10000, (i) => 'Item $i');
 
-    return CupertinoSliverAppbarExample(list: list);
-  }
-}
-
-class CustomIcon extends StatelessWidget {
-  const CustomIcon({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Stack(
-      alignment: Alignment.center,
-      children: [
-        Icon(Icons.circle, size: 40, color: Colors.amberAccent),
-        Icon(Icons.notification_important_sharp, color: Colors.white),
-      ],
-    );
-  }
-}
-
-class MaterialSliverCustomAppbar extends StatelessWidget {
-  const MaterialSliverCustomAppbar({super.key, required this.list});
-
-  final List<String> list;
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: DefaultTextStyle.merge(
-        style: descTextStyleMaterial,
-        child: CustomScrollView(
-          slivers: [
-            SliverAppBar(
-              // floating: true,
-              pinned: true,
-              expandedHeight: 300,
-              flexibleSpace: FlexibleSpaceBar(
-                title: Text(
-                  "Sliver App Bar",
-                  style: TextStyle(fontSize: 30, color: Colors.black),
-                ),
-                background: Image.asset(
-                  'assets/landscape.jpg',
-                  fit: BoxFit.fitHeight,
-                ),
-              ),
-            ),
-            SliverList.builder(
-              itemCount: list.length,
-              itemBuilder: (context, index) => Container(
-                color: Colors.green,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Center(child: Text(list[index])),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class NiceScrollview extends StatelessWidget {
-  const NiceScrollview({super.key, required this.list});
-
-  final List<String> list;
-
-  @override
-  Widget build(BuildContext context) {
-    return ListWheelScrollView(
-      itemExtent: 120,
-      useMagnifier: true,
-      magnification: 3,
-      children: [
-        ...list.map(
-          (str) => Card(
-            child: Padding(
-              padding: const EdgeInsets.all(10),
-              child: Center(child: Text(str)),
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class DraggebleAwesomeSheet extends StatelessWidget {
-  const DraggebleAwesomeSheet({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return DraggableScrollableSheet(
-      initialChildSize: 0.2,
-      minChildSize: 0.1,
-      builder: (context, controller) {
-        return SingleChildScrollView(
-          controller: controller,
-          child: Container(
-            decoration: BoxDecoration(
-              color: Colors.cyan,
-
-              border: Border.all(width: 3, color: Colors.cyan),
-              borderRadius: BorderRadius.all(Radius.circular(20)),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-              child: Column(
-                children: [
-                  ClipRRect(
-                    borderRadius: BorderRadiusGeometry.circular(20),
-                    child: Image.network(imageUrl),
-                  ),
-                  SizedBox(height: 20),
-                  SkeletonLoader(),
-                ],
-              ),
-            ),
-          ),
-        );
-      },
-    );
-  }
-}
-
-class SkeletonLoader extends StatelessWidget {
-  const SkeletonLoader({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Shimmer.fromColors(
-      baseColor: Colors.grey[300]!,
-      highlightColor: Colors.grey[100]!,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          ...List<Widget>.generate(20, (_) {
-            final aux = Random().nextInt(50) + 50;
-            return SkeletonLine(width: 300 + aux.toDouble());
-          }),
-        ],
-      ),
-    );
-  }
-}
-
-class SkeletonLine extends StatelessWidget {
-  const SkeletonLine({super.key, required this.width});
-
-  final double width;
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 8.0),
-      child: Container(
-        width: width,
-        height: 16.0,
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(8.0),
-        ),
-      ),
-    );
+    return DraggableSheetExample();
   }
 }
 
