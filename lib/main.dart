@@ -6,77 +6,18 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter_learn/widgets/nice_fab_widget.dart';
+import 'package:flutter_learn/features/paralax/paralax.dart';
+import 'package:flutter_learn/utils/locations.dart';
+import 'package:flutter_learn/features/nice_fab_widget.dart';
+import 'package:flutter_learn/utils/textstyles.dart';
+import 'package:flutter_learn/utils/utils.dart';
 import 'package:shimmer/shimmer.dart';
 
 void main() {
-  debugPaintSizeEnabled = true;
+  // debugPaintSizeEnabled = true;
   // debugRepaintRainbowEnabled = true;
   runApp(const MainApp());
 }
-
-class Locations {
-  final String imagePath;
-  final String name;
-  final String country;
-
-  Locations({
-    required this.imagePath,
-    required this.name,
-    required this.country,
-  });
-}
-
-final locations = [
-  Locations(
-    imagePath:
-        "https://storage.googleapis.com/tripedia-images/destinations/great-bear-rainforest.jpg",
-    name: "Great Bear Rainforest",
-    country: "Canada",
-  ),
-  Locations(
-    imagePath:
-        "https://storage.googleapis.com/tripedia-images/destinations/burgundy.jpg",
-    name: "Burgundy",
-    country: "France",
-  ),
-  Locations(
-    imagePath:
-        "https://storage.googleapis.com/tripedia-images/destinations/bora-bora.jpg",
-    name: "Bora Bora",
-    country: "French Polynesia",
-  ),
-  Locations(
-    imagePath:
-        "https://storage.googleapis.com/tripedia-images/destinations/asheville.jpg",
-    name: "Asheville",
-    country: "USA",
-  ),
-  Locations(
-    imagePath:
-        "https://storage.googleapis.com/tripedia-images/destinations/antelope-canyon.jpg",
-    name: "Antelope Canyon",
-    country: "United States",
-  ),
-  Locations(
-    imagePath:
-        "https://storage.googleapis.com/tripedia-images/destinations/angkor-wat.jpg",
-    name: "Angkor Wat",
-    country: "Cambodia",
-  ),
-  Locations(
-    imagePath:
-        "https://storage.googleapis.com/tripedia-images/destinations/amazon-rainforest.jpg",
-    name: "Amazon Rainforest",
-    country: "Brazil",
-  ),
-  Locations(
-    imagePath:
-        "https://storage.googleapis.com/tripedia-images/destinations/amalfi-coast.jpg",
-    name: "Amalfi Coast",
-    country: "Italy",
-  ),
-];
 
 class MainApp extends StatelessWidget {
   const MainApp({super.key});
@@ -85,202 +26,7 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final list = List<String>.generate(10000, (i) => 'Item $i');
 
-    return MaterialApp(home: AnimatedFloatingActionButton());
-  }
-}
-
-class ParalaxExample extends StatelessWidget {
-  const ParalaxExample({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return CupertinoApp(
-      debugShowCheckedModeBanner: false,
-      home: DefaultTextStyle(
-        style: descTextStyle,
-        child: CupertinoPageScaffold(
-          child: CustomScrollView(
-            slivers: [
-              CupertinoSliverNavigationBar(largeTitle: Text("Paralax Example")),
-              SliverList.builder(
-                itemCount: locations.length,
-                itemBuilder: (context, index) => LocationListItem(
-                  name: locations[index].name,
-                  imagePath: locations[index].imagePath,
-                  country: locations[index].country,
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-final imageUrl =
-    "https://storage.googleapis.com/tripedia-images/destinations/bora-bora.jpg";
-
-final stars = Row(
-  mainAxisSize: MainAxisSize.max,
-  children: [
-    Icon(CupertinoIcons.star, color: CupertinoColors.activeGreen, size: 14),
-    Icon(CupertinoIcons.star, color: CupertinoColors.activeGreen, size: 14),
-    Icon(CupertinoIcons.star, color: CupertinoColors.activeGreen, size: 14),
-    Icon(CupertinoIcons.star, color: CupertinoColors.activeGreen, size: 14),
-    Icon(CupertinoIcons.star, color: CupertinoColors.activeGreen, size: 14),
-  ],
-);
-
-const descTextStyle = TextStyle(
-  color: CupertinoColors.black,
-  fontWeight: FontWeight.w800,
-  fontFamily: 'San Francisco', //'Roboto
-  letterSpacing: 0.5,
-  fontSize: 16,
-  height: 2,
-);
-
-@immutable
-class LocationListItem extends StatelessWidget {
-  LocationListItem({
-    super.key,
-    required this.name,
-    required this.imagePath,
-    required this.country,
-  });
-  final String name;
-  final String country;
-  final String imagePath;
-  final GlobalKey _backgroundImageKey = GlobalKey();
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsetsGeometry.symmetric(horizontal: 24, vertical: 16),
-      child: AspectRatio(
-        aspectRatio: 16 / 9,
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(16),
-          child: Stack(
-            children: [
-              // Paralax Background
-              Flow(
-                delegate: ParallaxFlowDelegate(
-                  scrollable: Scrollable.of(context),
-                  listItemContext: context,
-                  backgroundImageKey: _backgroundImageKey,
-                ),
-                children: [
-                  Image.network(
-                    imagePath,
-                    key: _backgroundImageKey,
-                    fit: BoxFit.cover,
-                  ),
-                ],
-              ),
-              // gradient
-              Positioned.fill(
-                child: DecoratedBox(
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: [
-                        Colors.transparent,
-                        Colors.black.withValues(alpha: 0.7),
-                      ],
-                      begin: Alignment.topCenter,
-                      end: AlignmentGeometry.bottomCenter,
-                      stops: const [0.6, 0.95],
-                    ),
-                  ),
-                ),
-              ),
-              // TItle and SubTitle
-              Positioned(
-                left: 20,
-                bottom: 20,
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      name,
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    Text(
-                      country,
-                      style: const TextStyle(color: Colors.white, fontSize: 14),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class ParallaxFlowDelegate extends FlowDelegate {
-  final ScrollableState scrollable;
-  final BuildContext listItemContext;
-  final GlobalKey backgroundImageKey;
-
-  ParallaxFlowDelegate({
-    required this.scrollable,
-    required this.listItemContext,
-    required this.backgroundImageKey,
-  }) : super(repaint: scrollable.position);
-  @override
-  BoxConstraints getConstraintsForChild(int i, BoxConstraints constraints) {
-    return BoxConstraints.tightFor(width: constraints.maxWidth);
-  }
-
-  @override
-  void paintChildren(FlowPaintingContext context) {
-    // calculate position
-    final scrollableBox = scrollable.context.findRenderObject() as RenderBox;
-    final listItemBox = listItemContext.findRenderObject() as RenderBox;
-    final listItemOffSet = listItemBox.localToGlobal(
-      listItemBox.size.centerLeft(Offset.zero),
-      ancestor: scrollableBox,
-    );
-    // perfcent of area
-    final viewportDimension = scrollable.position.viewportDimension;
-    final scrollFraction = (listItemOffSet.dy / viewportDimension).clamp(
-      0.0,
-      1.0,
-    );
-    // calculate vertical align
-    final verticalAlignment = Alignment(0.0, scrollFraction * 2 - 1);
-    // some weird shit
-    final backgroundSize =
-        (backgroundImageKey.currentContext!.findRenderObject() as RenderBox)
-            .size;
-    final listItemSize = context.size;
-    final childRect = verticalAlignment.inscribe(
-      backgroundSize,
-      Offset.zero & listItemSize,
-    );
-    // paint background
-    context.paintChild(
-      0,
-      transform: Transform.translate(
-        offset: Offset(0.0, childRect.top),
-      ).transform,
-    );
-  }
-
-  @override
-  bool shouldRepaint(ParallaxFlowDelegate oldDelegate) {
-    return scrollable != oldDelegate.scrollable ||
-        listItemContext != oldDelegate.listItemContext ||
-        backgroundImageKey != oldDelegate.backgroundImageKey;
+    return ParalaxExample();
   }
 }
 
@@ -309,7 +55,7 @@ class CupertinoSliverAppbar extends StatelessWidget {
     return CupertinoApp(
       debugShowCheckedModeBanner: false,
       home: DefaultTextStyle(
-        style: descTextStyle,
+        style: descTextStyleCupertino,
         child: CupertinoPageScaffold(
           child: CustomScrollView(
             slivers: [
@@ -349,7 +95,7 @@ class MaterialSliverCustomAppbar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: DefaultTextStyle.merge(
-        style: descTextStyle,
+        style: descTextStyleMaterial,
         child: CustomScrollView(
           slivers: [
             SliverAppBar(
