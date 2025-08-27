@@ -24,16 +24,16 @@ class AdaptativeNavigationExample extends StatelessWidget {
                           : NavigationRailLabelType.none,
                       destinations: [
                         NavigationRailDestination(
-                          icon: Icon(Icons.home),
-                          label: Text("Home"),
+                          icon: destinationList[0].icon,
+                          label: destinationList[0].label,
                         ),
                         NavigationRailDestination(
-                          icon: Icon(Icons.notification_important_rounded),
-                          label: Text("Notification"),
+                          icon: destinationList[1].icon,
+                          label: destinationList[1].label,
                         ),
                         NavigationRailDestination(
-                          icon: Icon(Icons.date_range_rounded),
-                          label: Text("Date"),
+                          icon: destinationList[2].icon,
+                          label: destinationList[2].label,
                         ),
                       ],
                       selectedIndex: 0,
@@ -47,21 +47,9 @@ class AdaptativeNavigationExample extends StatelessWidget {
               body: Center(child: Text("Adaptative Navigation Bar")),
               bottomNavigationBar: NavigationBar(
                 destinations: [
-                  Destination(
-                    hasTitle: false, // showTitle?
-                    iconData: Icons.home,
-                    title: "Home",
-                  ),
-                  Destination(
-                    hasTitle: false, // showTitle?
-                    iconData: Icons.notification_important_rounded,
-                    title: "Notification",
-                  ),
-                  Destination(
-                    hasTitle: false, // showTitle?
-                    iconData: Icons.date_range_rounded,
-                    title: "Notification",
-                  ),
+                  destinationList[0].icon,
+                  destinationList[1].icon,
+                  destinationList[2].icon,
                 ],
               ),
             );
@@ -72,25 +60,21 @@ class AdaptativeNavigationExample extends StatelessWidget {
   }
 }
 
-class Destination extends StatelessWidget {
-  const Destination({
-    super.key,
-    required this.iconData,
-    required this.title,
-    required this.hasTitle,
-  });
+final destinationList = [
+  Destination(icon: Icon(Icons.home), label: Text("Home")),
+  Destination(
+    icon: Icon(Icons.notification_important_rounded),
+    label: Text("Notification"),
+  ),
+  Destination(
+    icon: Icon(Icons.date_range_rounded),
+    label: Text("Notification"),
+  ),
+];
 
-  final IconData iconData;
-  final String title;
-  final bool hasTitle;
+class Destination {
+  final Icon icon;
+  final Text label;
 
-  @override
-  Widget build(BuildContext context) {
-    return hasTitle
-        ? Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [Icon(iconData), SizedBox(height: 5), Text(title)],
-          )
-        : Icon(iconData);
-  }
+  const Destination({required this.icon, required this.label});
 }
