@@ -18,6 +18,8 @@ import 'package:flutter_learn/utils/textstyles.dart';
 import 'package:flutter_learn/utils/utils.dart';
 import 'package:shimmer/shimmer.dart';
 
+import 'features/adaptative_card_text/widgets/adaptative_card_text.dart';
+import 'features/adaptative_card_text/adaptative_card_text_example.dart';
 import 'features/dialog/responsible_adaptative_dialog_example.dart';
 import 'features/scroll_view/draggable_sheet/draggable_sheet_example.dart';
 
@@ -34,6 +36,6 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final list = List<String>.generate(10000, (i) => 'Item $i');
 
-    return AdaptativeNavigationExample();
+    return AdaptativeCardTextExample();
   }
 }
