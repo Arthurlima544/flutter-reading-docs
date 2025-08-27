@@ -46,3 +46,6 @@ app.*.map.json
 
 # web (not recommended)
 /web/
+
+# Golden tests
+/test_golden_images/
