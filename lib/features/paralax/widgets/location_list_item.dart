@@ -36,6 +36,7 @@ class LocationListItem extends StatelessWidget {
                     imagePath,
                     key: _backgroundImageKey,
                     fit: BoxFit.cover,
+                    errorBuilder: (context, error, stackTrace) => Placeholder(),
                   ),
                 ],
               ),

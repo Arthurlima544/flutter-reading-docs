@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/widgets.dart';
 
 class ParallaxFlowDelegate extends FlowDelegate {
   final ScrollableState scrollable;
@@ -10,44 +10,42 @@ class ParallaxFlowDelegate extends FlowDelegate {
     required this.listItemContext,
     required this.backgroundImageKey,
   }) : super(repaint: scrollable.position);
+
   @override
   BoxConstraints getConstraintsForChild(int i, BoxConstraints constraints) {
-    return BoxConstraints.tightFor(width: constraints.maxWidth);
+    return BoxConstraints.tightFor(
+      width: constraints.maxWidth,
+      height: constraints.maxHeight * 1.4,
+    );
   }
 
   @override
   void paintChildren(FlowPaintingContext context) {
-    // calculate position
     final scrollableBox = scrollable.context.findRenderObject() as RenderBox;
     final listItemBox = listItemContext.findRenderObject() as RenderBox;
-    final listItemOffSet = listItemBox.localToGlobal(
-      listItemBox.size.centerLeft(Offset.zero),
+
+    final listItemOffset = listItemBox.localToGlobal(
+      Offset.zero,
       ancestor: scrollableBox,
     );
-    // perfcent of area
+
     final viewportDimension = scrollable.position.viewportDimension;
-    final scrollFraction = (listItemOffSet.dy / viewportDimension).clamp(
-      0.0,
-      1.0,
-    );
-    // calculate vertical align
-    final verticalAlignment = Alignment(0.0, scrollFraction * 2 - 1);
-    // some weird shit
-    final backgroundSize =
-        (backgroundImageKey.currentContext!.findRenderObject() as RenderBox)
-            .size;
-    final listItemSize = context.size;
-    final childRect = verticalAlignment.inscribe(
-      backgroundSize,
-      Offset.zero & listItemSize,
-    );
-    // paint background
-    context.paintChild(
-      0,
-      transform: Transform.translate(
-        offset: Offset(0.0, childRect.top),
-      ).transform,
-    );
+    final itemCenter = listItemOffset.dy + (listItemBox.size.height / 2);
+    final alignment =
+        (itemCenter - (viewportDimension / 2)) / (viewportDimension / 2);
+
+    final background =
+        backgroundImageKey.currentContext!.findRenderObject() as RenderBox;
+
+    final maxScrollExtent = (background.size.height - context.size.height);
+
+    final verticalOffset = alignment * maxScrollExtent / 2;
+
+    final transform = Transform.translate(
+      offset: Offset(0.0, verticalOffset),
+    ).transform;
+
+    context.paintChild(0, transform: transform);
   }
 
   @override
