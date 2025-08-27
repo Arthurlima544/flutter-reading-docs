@@ -6,6 +6,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_learn/features/container/padding_margin_border_example.dart';
+import 'package:flutter_learn/features/navigation/adaptative_navigation_example.dart';
 import 'package:flutter_learn/features/paralax/paralax.dart';
 import 'package:flutter_learn/features/row_column/rows_and_columns_example.dart';
 import 'package:flutter_learn/features/sliver_appbar/cupertino_sliver_appbar_example.dart';
@@ -17,6 +18,7 @@ import 'package:flutter_learn/utils/textstyles.dart';
 import 'package:flutter_learn/utils/utils.dart';
 import 'package:shimmer/shimmer.dart';
 
+import 'features/dialog/responsible_adaptative_dialog_example.dart';
 import 'features/scroll_view/draggable_sheet/draggable_sheet_example.dart';
 
 void main() {
@@ -32,6 +34,6 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final list = List<String>.generate(10000, (i) => 'Item $i');
 
-    return RowsAndColumnsExample();
+    return AdaptativeNavigationExample();
   }
 }
