@@ -14,7 +14,7 @@ class AdaptativeCardText extends StatelessWidget {
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
-        final imageConstraint = (constraints.maxWidth * 0.3).clamp(80.0, 160.0);
+        final imageConstraint = (constraints.maxWidth * 0.3).clamp(20.0, 160.0);
         return Card(
           child: Padding(
             padding: const EdgeInsets.all(8.0),
@@ -26,6 +26,7 @@ class AdaptativeCardText extends StatelessWidget {
                     imagePath,
                     width: imageConstraint,
                     height: imageConstraint,
+                    errorBuilder: (context, error, stackTrace) => Placeholder(),
                   ),
                 ),
                 SizedBox(width: 10),
