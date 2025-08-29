@@ -6,6 +6,8 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_learn/features/accessibility/dismissible_text_on_delete_key_example.dart';
 import 'package:flutter_learn/features/container/padding_margin_border_example.dart';
 import 'package:flutter_learn/features/navigation/adaptative_navigation_example.dart';
 import 'package:flutter_learn/features/paralax/paralax.dart';
@@ -14,6 +16,7 @@ import 'package:flutter_learn/features/scroll_types/fixed_extent_scroll_physics_
 import 'package:flutter_learn/features/sliver_appbar/cupertino_sliver_appbar_example.dart';
 import 'package:flutter_learn/features/sliver_appbar/material_sliver_appbar_example.dart';
 import 'package:flutter_learn/features/scroll_view/wheel_scroll_view_example.dart';
+import 'package:flutter_learn/features/traversals/focusable_action_detector_example.dart';
 import 'package:flutter_learn/utils/locations.dart';
 import 'package:flutter_learn/features/nice_fab_widget.dart';
 import 'package:flutter_learn/utils/textstyles.dart';
@@ -39,6 +42,6 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final list = List<String>.generate(10000, (i) => 'Item $i');
 
-    return FixedExtentScrollPhysicsExample(list: list);
+    return DismissibleTextExample();
   }
 }
