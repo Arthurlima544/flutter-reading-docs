@@ -4,11 +4,13 @@ import 'dart:math';
 
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_learn/features/container/padding_margin_border_example.dart';
 import 'package:flutter_learn/features/navigation/adaptative_navigation_example.dart';
 import 'package:flutter_learn/features/paralax/paralax.dart';
 import 'package:flutter_learn/features/row_column/rows_and_columns_example.dart';
+import 'package:flutter_learn/features/scroll_types/fixed_extent_scroll_physics_example.dart';
 import 'package:flutter_learn/features/sliver_appbar/cupertino_sliver_appbar_example.dart';
 import 'package:flutter_learn/features/sliver_appbar/material_sliver_appbar_example.dart';
 import 'package:flutter_learn/features/scroll_view/wheel_scroll_view_example.dart';
@@ -37,6 +39,6 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final list = List<String>.generate(10000, (i) => 'Item $i');
 
-    return ParalaxGridview();
+    return FixedExtentScrollPhysicsExample(list: list);
   }
 }
