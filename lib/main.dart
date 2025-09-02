@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_learn/features/accessibility/dismissible_text_on_delete_key_example.dart';
 import 'package:flutter_learn/features/container/padding_margin_border_example.dart';
+import 'package:flutter_learn/features/just_audio/just_audio_example.dart';
 import 'package:flutter_learn/features/navigation/adaptative_navigation_example.dart';
 import 'package:flutter_learn/features/paralax/paralax.dart';
 import 'package:flutter_learn/features/row_column/rows_and_columns_example.dart';
@@ -43,6 +44,6 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final list = List<String>.generate(10000, (i) => 'Item $i');
 
-    return MouseHoverExample();
+    return JustAudioExample();
   }
 }
